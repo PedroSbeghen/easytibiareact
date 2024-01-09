@@ -68,7 +68,9 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor de conversão em gold.
           </p>
-          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)}  onKeyUp={(e) => setGc(maskWithoutDecimal(e.target.value))}/>
+          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)}  onKeyUp={(e) => {
+            console.log(e);            
+            }}/>
         </div>
 
         <div
@@ -83,7 +85,7 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor do Tibia Coin.
           </p>
-          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={(e) => setTc(maskWithoutDecimal(e.target.value))}/>
+          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={(e) => setTc(maskWithoutDecimal(tc))}/>
         </div>
 
         <div
