@@ -35,7 +35,7 @@ export default function Home() {
             <Image
               src="/static/upback.png"
               alt="Upback Yellowdrop"
-              className="dark:invert w-full h-auto"
+              className="dark:invert w-auto h-auto"
               width={200}
               height={48}
               priority
