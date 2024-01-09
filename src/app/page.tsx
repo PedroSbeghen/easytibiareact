@@ -1,6 +1,23 @@
+'use client';
 import Image from 'next/image'
+import { useState } from 'react';
 
 export default function Home() {
+  const [gc, setGc] = useState('0');
+
+  const [tc, setTc] = useState('0');
+
+  const [vtc, setVtc] = useState(0);
+
+  const [tot, setTot] = useState('');
+
+  const maskWithoutDecimal = (value: string) => {
+      value = value.replaceAll('.', '');
+      value = value.replace(/[^0-9\.]+/g, "");
+      return parseFloat(value).toLocaleString('pt-BR');
+  }
+
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -39,7 +56,7 @@ export default function Home() {
       </div>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <div          
+        <div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -49,11 +66,12 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Valor de conversão em gold coins.
+            Valor de conversão em gold.
           </p>
+          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)}  onKeyUp={(e) => setGc(maskWithoutDecimal(e.target.value))}/>
         </div>
 
-        <div          
+        <div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -65,9 +83,10 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor do Tibia Coin.
           </p>
+          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={(e) => setTc(maskWithoutDecimal(e.target.value))}/>
         </div>
 
-        <div          
+        <div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -79,9 +98,12 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor de venda x250TC em R$.
           </p>
+          <input id="vtc" type="number" value={vtc} onChange={(e) => { 
+          setVtc(parseFloat(e.target.value));          
+          }}/>
         </div>
 
-        <div          
+        <div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -91,10 +113,8 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}></p>
+          <input id="tot" type="text" onChange={(e) => setTot(e.target.value)} />
         </div>
-
-
-
       </div>
     </main>
   )
