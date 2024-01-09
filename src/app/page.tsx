@@ -9,13 +9,17 @@ export default function Home() {
 
   const [vtc, setVtc] = useState(0);
 
-  const [tot, setTot] = useState('');
+  const [tot, setTot] = useState('0');
 
   const maskWithoutDecimal = (value: string) => {
       value = value.replaceAll('.', '');
       value = value.replace(/[^0-9\.]+/g, "");
       return parseFloat(value).toLocaleString('pt-BR');
   }
+
+  const calc = () => {
+    setTot((((parseFloat(gc.replaceAll('.', '')) / parseFloat(tc.replaceAll('.', '')))/250) * vtc).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))
+}
 
   
   return (
@@ -65,11 +69,9 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Valor de conversão em gold:
+            Valor em gold coins:
           </p>
-          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)}  onKeyUp={(e) => {
-            console.log(e);            
-            }}/>
+          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)}  onKeyUp={() => {setGc(maskWithoutDecimal(gc))}}/>
         </div>
 
         <div
@@ -84,7 +86,7 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor do Tibia Coin:
           </p>
-          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={(e) => setTc(maskWithoutDecimal(tc))}/>
+          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={() => setTc(maskWithoutDecimal(tc))}/>
         </div>
 
         <div
@@ -116,9 +118,14 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor em R$:
           </p>
-          <input id="tot" type="text" onChange={(e) => setTot(e.target.value)} />
+          <input id="tot" type="text" value={tot} onChange={(e) => setTot(e.target.value)} />
         </div>
       </div>
+      <div
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+        >
+          <button onClick={calc}>Calcular</button>
+        </div>
     </main>
   )
 }
