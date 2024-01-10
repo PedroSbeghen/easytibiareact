@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image'
 
-export default function () {
+export default function About () {
     return (
 
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -46,7 +46,7 @@ export default function () {
                     <div className="flex items-center">
                         <Image className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/>
                             <div className="text-sm">
-                                <p className="text-gray-900 leading-none">Glecir 'G2' Manoel</p>
+                                <p className="text-gray-900 leading-none">Glecir G2 Manoel</p>
                                 <p className="text-gray-600">2024</p>
                             </div> 
                     </div>
@@ -70,7 +70,7 @@ export default function () {
                     <div className="flex items-center">
                         <Image className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/>
                             <div className="text-sm">
-                                <p className="text-gray-900 leading-none">Pedro 'Drogas' Cariani</p>
+                                <p className="text-gray-900 leading-none">Pedro Drogas Cariani</p>
                                 <p className="text-gray-600">BolumBack</p>
                             </div> 
                     </div>
