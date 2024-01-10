@@ -45,7 +45,7 @@ export default function () {
                         <p className="text-gray-700 text-base">Level: 999</p>
                     </div>
                     <div className="flex items-center">
-                        <img className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/>
+                        {/* <img className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/> */}
                             <div className="text-sm">
                                 <p className="text-gray-900 leading-none">Glecir 'G2' Manoel</p>
                                 <p className="text-gray-600">2024</p>
@@ -69,7 +69,7 @@ export default function () {
                         <p className="text-gray-700 text-base">Level: 999</p>
                     </div>
                     <div className="flex items-center">
-                        <img className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/>
+                        {/* <img className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/> */}
                             <div className="text-sm">
                                 <p className="text-gray-900 leading-none">Pedro 'Drogas' Cariani</p>
                                 <p className="text-gray-600">BolumBack</p>
