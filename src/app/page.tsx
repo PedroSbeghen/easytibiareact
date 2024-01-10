@@ -7,6 +7,8 @@ export default function Home() {
 
   const [tc, setTc] = useState('0');
 
+  const [qtdTc, setQtdTc] = useState('0');
+
   const [vtc, setVtc] = useState(0);
 
   const [tot, setTot] = useState('0');
@@ -18,7 +20,8 @@ export default function Home() {
   }
 
   const calc = () => {
-    setTot((((parseFloat(gc.replaceAll('.', '')) / parseFloat(tc.replaceAll('.', '')))/250) * vtc).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))
+    setTot((((parseFloat(gc.replaceAll('.', '')) / parseFloat(tc.replaceAll('.', '')))/250) * vtc).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+    setQtdTc((parseFloat(gc.replaceAll('.', ''))/parseFloat(tc.replaceAll('.', ''))).toLocaleString('pt-BR') );
 }
 
   
@@ -87,6 +90,10 @@ export default function Home() {
             Valor do Tibia Coin:
           </p>
           <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={() => setTc(maskWithoutDecimal(tc))}/>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Qtd:
+          </p>
+          <input id="qtdTc" type="text" value={qtdTc} disabled onChange={(e) => { setQtdTc(e.target.value) }}/>
         </div>
 
         <div
@@ -118,7 +125,7 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor em R$:
           </p>
-          <input id="tot" type="text" value={tot} onChange={(e) => setTot(e.target.value)} />
+          <input id="tot" type="text" value={tot} disabled   onChange={(e) => setTot(e.target.value)} />
         </div>
       </div>
       <div
