@@ -34,7 +34,8 @@ body {
 }
 
 input,
-input::placeholder{ 
+input::placeholder,
+.text-center{ 
   text-align: center;
 }
 

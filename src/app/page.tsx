@@ -3,28 +3,74 @@ import Image from 'next/image'
 import { useState } from 'react';
 
 export default function Home() {
-  const [gc, setGc] = useState('0');
+  const [gc, setGc] = useState(`0`);
 
-  const [tc, setTc] = useState('0');
+  const [tc, setTc] = useState(`38000`);
 
-  const [qtdTc, setQtdTc] = useState('0');
+  const [qtdTc, setQtdTc] = useState(`1`);
 
-  const [vtc, setVtc] = useState(0);
+  const [vtc, setVtc] = useState(`45`);
 
-  const [tot, setTot] = useState('0');
+  const [tot, setTot] = useState(`0`);
 
-  const maskWithoutDecimal = (value: string) => {
-      value = value.replaceAll('.', '');
-      value = value.replace(/[^0-9\.]+/g, "");
-      return parseFloat(value).toLocaleString('pt-BR');
-  }
-
-  const calc = () => {
-    setTot((((parseFloat(gc.replaceAll('.', '')) / parseFloat(tc.replaceAll('.', '')))/250) * vtc).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
-    setQtdTc((parseFloat(gc.replaceAll('.', ''))/parseFloat(tc.replaceAll('.', ''))).toLocaleString('pt-BR') );
+function toFloat(val: string){
+  return val.replaceAll('.','').replaceAll(',','.');
 }
 
-  
+const calc = (key: string) => { 
+  let fGc = parseFloat(toFloat(gc)) || 1;
+  let fTc = parseFloat(toFloat(tc)) || 1;
+  let fQtdTc = parseFloat(toFloat(qtdTc)) || 1;
+  let fVtc = parseFloat(toFloat(vtc)) || 1;
+  let fTot = parseFloat(toFloat(tot)) || 1; 
+
+  let total = ((((fGc*1000000)/fTc)*fVtc)/250)
+
+  let totalGc = ((((fTot/fVtc)*250)*fTc)/1000000)
+
+  switch (key) {
+    case "GC":
+      setTot(`${total.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}`);
+      break;
+    case "TC":
+
+      break;
+    case "QTDTC":
+
+      break;
+    case "VTC":
+
+      break;
+    case "TOT":
+      setGc(`${totalGc.toLocaleString('pt-BR')}`);
+      break;
+    default:
+      break;
+  }
+  // setTc(``);
+  // setQtdTc(``);
+  // setVtc(``);
+}
+
+
+const mascaraMoeda = (event) => {
+  const onlyDigits = event.target.value
+    .split("")
+    .filter(s => /\d/.test(s))
+    .join("")
+    .padStart(3, "0")
+  const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+  event.target.value = maskCurrency(digitsFloat)
+}
+
+const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency
+  }).format(valor)
+}
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -72,9 +118,9 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Valor em gold coins:
+            Valor em kk's de gold coins:
           </p>
-          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)}  onKeyUp={() => {setGc(maskWithoutDecimal(gc))}}/>
+          <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)} onKeyUp={(e)=> {calc(`GC`);}} />
         </div>
 
         <div
@@ -89,11 +135,11 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor do Tibia Coin:
           </p>
-          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} onKeyUp={() => setTc(maskWithoutDecimal(tc))}/>
+          <input id="tc" type="text" value={tc} onChange={(e) => { setTc(e.target.value) }} />
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Qtd:
           </p>
-          <input id="qtdTc" type="text" value={qtdTc} disabled onChange={(e) => { setQtdTc(e.target.value) }}/>
+          <input id="qtdTc" type="text" value={qtdTc} disabled onChange={(e) => setQtdTc(e.target.value) } />
         </div>
 
         <div
@@ -108,16 +154,14 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor de venda x250TC em R$:
           </p>
-          <input id="vtc" type="number" value={vtc} onChange={(e) => { 
-          setVtc(parseFloat(e.target.value));          
-          }}/>
+          <input id="vtc" type="text" value={vtc} onChange={(e) => setVtc(e.target.value)} />
         </div>
 
         <div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            Total{' '}
+            Reais{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
@@ -125,14 +169,12 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Valor em R$:
           </p>
-          <input id="tot" type="text" value={tot} disabled   onChange={(e) => setTot(e.target.value)} />
+          <input id="tot" type="text" value={tot} onChange={(e) => setTot(e.target.value)} onKeyUp={(e)=> {calc(`TOT`);}} />
+
         </div>
+
       </div>
-      <div
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <button onClick={calc}>Calcular</button>
-        </div>
+
     </main>
   )
 }
