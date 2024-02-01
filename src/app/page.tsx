@@ -53,17 +53,17 @@ const calc = (key: string) => {
 }
 
 
-const mascaraMoeda = (event) => {
+const mascaraMoeda = (event: any) => {
   const onlyDigits = event.target.value
     .split("")
-    .filter(s => /\d/.test(s))
+    .filter((s: string) => /\d/.test(s))
     .join("")
     .padStart(3, "0")
   const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
   event.target.value = maskCurrency(digitsFloat)
 }
 
-const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
+const maskCurrency = (valor: any, locale = 'pt-BR', currency = 'BRL') => {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency
@@ -118,7 +118,7 @@ const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Valor em kk's de gold coins:
+            Valor em kks de gold coins:
           </p>
           <input id="gc" type="text" value={gc} onChange={(e) => setGc(e.target.value)} onKeyUp={(e)=> {calc(`GC`);}} />
         </div>
