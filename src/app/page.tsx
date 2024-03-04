@@ -31,6 +31,7 @@ const calc = (key: string) => {
   switch (key) {
     case "GC":
       setTot(`${total.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}`);
+      setQtdTc(`${(fGc*1000000/fTc).toFixed(2)}`);
       break;
     case "TC":
 
@@ -47,9 +48,6 @@ const calc = (key: string) => {
     default:
       break;
   }
-  // setTc(``);
-  // setQtdTc(``);
-  // setVtc(``);
 }
 
 
